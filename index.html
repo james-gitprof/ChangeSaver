@@ -9,13 +9,17 @@
   <script type="module" src="/src/main.ts"></script>
 </head>
 
-<body>
-  <nav class="flex justify-between">
-    <p class="flex items-center p-4">Change Denomination Optimizer</p>
-    <ul class="p-4">
-      <li>About</li>
+<body class="*:font-sans">
+
+  <nav class="flex justify-between *:p-4 bg-red-400">
+    <p class="flex items-center text-lg lg:text-2xl font-bold text-white">Change Denomination Optimizer</p>
+    <span id="mobile-nav-menu" class="md:hidden flex items-center justify-center cursor-pointer"></span>
+    <ul class="items-center justify-center gap-5 hidden md:flex">
+      <li class="md:text-xl">About</li>
+      <li class="md:text-xl">GitHub</li>
     </ul>
   </nav>
+
 </body>
 
 </html>
