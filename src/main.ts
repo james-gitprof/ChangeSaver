@@ -1,18 +1,27 @@
-import "./main.css";
-import { Icons } from "./icons";
+import "./style/main.css";
 
-const hamburgerElement = document.getElementById("mobile-nav-menu") as HTMLSpanElement;
 
-class App {
+const hamburgerMenu = document.getElementById("hamburger") as HTMLDivElement;
+const darkModeSwitch = document.getElementsByClassName("DM-Switch");
 
-  start() {
-    this.initializeContents();
-  }
+// const header = document.getElementById("main-header") as HTMLElement;
 
-  initializeContents() {
-    hamburgerElement.innerHTML = Icons.SVG_HAMBURGER;
-  }
-}
+// Event bubbler capturer
+// SCRAPPED: Clicking the switch doesn't return the correct element i.e. inaccurate element bubbling
 
-const app = new App();
-app.start();
+// header.addEventListener("click", e => {
+//   const elementID = (e.target as HTMLElement).id;
+//   console.log(elementID, e.target);
+//   if (elementID === DARK_MODE_ID) {
+//     document.body.classList.toggle("dark");
+//   }
+// })
+
+Array.from(darkModeSwitch).forEach(element => element.addEventListener("click", () => document.body.classList.toggle("dark")));
+
+hamburgerMenu.addEventListener("click", e => {
+  const element = e.currentTarget as HTMLDivElement;
+  element.classList.toggle("open");
+});
+
+
