@@ -9,10 +9,10 @@
   <script type="module" src="/src/main.ts"></script>
 </head>
 
-<body class="dark:bg-slate-800 bg-white transition-colors duration-300">
-
-  <header id="main-header">
-    <nav class="w-full bg-blue-700 transition-colors dark:bg-slate-800 p-4 flex items-center justify-between relative">
+<body class="dark:bg-slate-800 bg-white transition-colors duration-300 flex flex-col min-h-dvh">
+  <header class="font-quicksand">
+    <nav
+      class="w-full bg-blue-700 transition-colors dark:bg-slate-800 p-4 flex items-center justify-between relative dark:border-b">
       <h1 class="text-3xl tracking-tight font-semibold">ChangeSaver</h1>
       <ul class="flex items-center justify-end flex-1 gap-12 relative">
         <li>
@@ -20,7 +20,7 @@
         </li>
         <li>
           <!-- Dark Mode Switch-->
-          <button class="hidden rounded-lg sm:flex gap-2 items-center cursor-pointer DM-Switch">
+          <button class="hidden rounded-lg sm:flex gap-2 items-center cursor-pointer" id="DM-Switch">
             <span class="flex items-center justify-center text-lg">
               <i class="fa-solid fa-sun"></i>
             </span>
@@ -28,11 +28,11 @@
             <div class="rounded-2xl border-2 py-2.5 px-12 overflow-hidden relative">
               <!-- the circle pin-->
               <div
-                class="rounded-full bg-white p-2 absolute top-1/2 left-[10%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%]">
+                class="rounded-full bg-white p-2 absolute top-1/2 left-[11%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%]">
               </div>
               <!-- the ping animation part when darkened-->
               <div
-                class="rounded-full bg-white p-2 absolute top-1/2 left-[10%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%] dark:animate-ping-once">
+                class="rounded-full bg-white p-2 absolute top-1/2 left-[11%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%] dark:animate-ping-once">
               </div>
             </div>
             <span class="flex justify-center items-center text-lg">
@@ -50,13 +50,13 @@
       </button>
       <!-- Dropdown menu from hamburger -->
       <ul
-        class="absolute hidden peer-open:flex peer-open:flex-col peer-open:items-center peer-open:gap-6 w-full top-full left-0 bg-blue-700 dark:bg-inherit dark:border-y-1 dark:border-slate-500 p-4 transition-colors duration-300">
+        class="absolute hidden md:pointer-events-none md:invisible peer-open:flex peer-open:flex-col peer-open:items-center peer-open:gap-6 w-full top-full left-0 bg-blue-700 dark:bg-inherit dark:border-y-1 dark:border-slate-500 p-4 transition-colors duration-300">
 
         <li>
           <a class="link text-xl">GitHub</a>
         </li>
 
-        <li>
+        <li class="sm:hidden">
           <!-- The dark mode switch again-->
           <button class="rounded-lg flex gap-2 items-center cursor-pointer group DM-Switch">
             <span class="flex items-center justify-center text-lg">
@@ -66,11 +66,11 @@
             <div class="rounded-2xl border-2 py-2.5 px-12 overflow-hidden relative">
               <!-- the circle pin-->
               <div
-                class="rounded-full bg-white p-2 absolute top-1/2 left-[10%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%]">
+                class="rounded-full bg-white p-2 absolute top-1/2 left-[20%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%]">
               </div>
               <!-- the ping animation part when darkened-->
               <div
-                class="rounded-full bg-white p-2 absolute top-1/2 left-[10%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%] dark:animate-ping-once">
+                class="rounded-full bg-white p-2 absolute top-1/2 left-[20%] -translate-y-1/2 -translate-x-1/2 transition- duration-300 dark:left-[90%] dark:animate-ping-once">
               </div>
             </div>
             <span class="flex justify-center items-center text-lg">
@@ -82,6 +82,44 @@
     </nav>
   </header>
 
+  <main class="flex items-center grid-cols-2 text-black flex-1 dark:text-white w-[80%] self-center">
+    <div class="p-5 flex gap-5 flex-1 bg-blue-500/10 dark:bg-blue-400/10 rounded-md">
+      <section class="flex-1 flex flex-col gap-6">
+        <div class="flex flex-col">
+          <label for="money-input" class="input-labels">
+            Enter your current money
+          </label>
+          <input class="input-field" type="text" id="money-input" placeholder="e.g. 1000" />
+          <span class="text-red-400 hidden">Warning text here</span>
+        </div>
+        <div class="flex flex-col">
+          <label for="item-price" class="input-labels">
+            Enter item price
+          </label>
+          <input type="text" class="input-field" id="item-price" placeholder="e.g. 130" />
+          <span class="text-red-400 hidden">Warning text here</span>
+        </div>
+        <div class="flex flex-col">
+          <label for="price-denominations" class="input-labels">
+            Enter largest denominations
+          </label>
+          <input type="text" class="input-field" id="price-denominations" placeholder="10,100,500,1000" />
+          <span class="text-red-400 hidden">Warning text here</span>
+        </div>
+        <button
+          class="shadow-button-stylish dark:shadow-button-stylish-dark active:shadow-sm active:translate-y-1 p-2 mt-2.5 bg-blue-600 dark:bg-white dark:text-slate-800 dark:hover:bg-white/80 hover:bg-blue-700 text-white rounded-3xl w-1/2 self-center cursor-pointer transition-all">Calculate
+          optimized
+          change</button>
+      </section>
+      <section class="p-4 flex-1">
+        Calculation results here
+      </section>
+    </div>
+  </main>
+
+  <footer class="text-white p-2 dark:bg-slate-800 dark:border-t bg-blue-700 transition-colors">
+    <p>&copy; Copyright by James. A mini project for fun...</p>
+  </footer>
 </body>
 
 </html>

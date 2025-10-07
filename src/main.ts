@@ -1,27 +1,53 @@
 import "./style/main.css";
 
+type Settings = {
+  siteToggleables: Record<string, boolean>;
+}
 
-const hamburgerMenu = document.getElementById("hamburger") as HTMLDivElement;
-const darkModeSwitch = document.getElementsByClassName("DM-Switch");
+class App {
 
-// const header = document.getElementById("main-header") as HTMLElement;
+  private hamburgerMenu = document.getElementById("hamburger") as HTMLDivElement;
+  private darkModeSwitch = document.getElementById("DM-Switch")!;
+  private siteSettings: Settings = { siteToggleables: {} };
 
-// Event bubbler capturer
-// SCRAPPED: Clicking the switch doesn't return the correct element i.e. inaccurate element bubbling
+  constructor() {
+    this.InitStartupSettings();
+    this.InitListeners();
+  }
 
-// header.addEventListener("click", e => {
-//   const elementID = (e.target as HTMLElement).id;
-//   console.log(elementID, e.target);
-//   if (elementID === DARK_MODE_ID) {
-//     document.body.classList.toggle("dark");
-//   }
-// })
+  InitListeners() {
+    this.darkModeSwitch.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("siteSettings", JSON.stringify(
+        {
+          siteToggleables: {
+            darkMode: document.body.classList.contains("dark")
+          },
+        }
+      ));
+    });
 
-Array.from(darkModeSwitch).forEach(element => element.addEventListener("click", () => document.body.classList.toggle("dark")));
+    this.hamburgerMenu.addEventListener("click", e => {
+      const element = e.currentTarget as HTMLDivElement;
+      element.classList.toggle("open");
+    });
+  }
 
-hamburgerMenu.addEventListener("click", e => {
-  const element = e.currentTarget as HTMLDivElement;
-  element.classList.toggle("open");
-});
+  InitStartupSettings() {
+    this.siteSettings = this.GetSettings();
+    const { siteToggleables: { darkMode } } = this.siteSettings
+    if (darkMode) {
+      document.body.classList.add("dark");
+    }
+  }
 
+  GetSettings() {
+    const localStore = localStorage.getItem("siteSettings");
+    if (localStore) {
+      return JSON.parse(localStore) as Settings;
+    }
+    return { siteToggleables: {} } as Settings;
+  }
+}
 
+new App();
